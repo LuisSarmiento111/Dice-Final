@@ -10,52 +10,66 @@ const die2Image = document.getElementById("die2Image");
 const die3Image = document.getElementById("die3Image");
 const total = document.getElementById("total");
 
-rollDiceButton.addEventListener("click", diceRoll);
+rollDiceButton.addEventListener("click", rollDice);
 confirmButton.addEventListener("click", disableForm)
-resetButton.addEventListener("click",enableForm)
+resetButton.addEventListener("click",reset)
 
-let diceNum = "0"
+let diceNum = 0
+let frequencies = []
 
 function disableForm() {
     let elements = form.diceNum;
     for (let i = 0, len = elements.length; i < len; ++i) {
         if(elements[i].checked) {
-            diceNum = elements[i].value
-            console.log("checked")
+            diceNum = parseInt(elements[i].value)
         }
         elements[i].disabled = true;
-        console.log(elements[i].value)
         }
-        console.log("diceNum: " + diceNum)
 }
 
- function enableForm() {
+ function reset() {
     let elements = form.diceNum;
+    diceNum = 0
     for (let i = 0, len = elements.length; i < len; ++i) {
         elements[i].disabled = false;
         elements[i].value = ""
         elements[i].checked = false
         }
-        diceNum = "0"
+    }
+    for (let i = 1; i < 4; i++) {
+        let dieImage = document.getElementById("die" + i + "Image")
+        dieImage.src = ""
+        console.log("hgejtiauhg")
     }
 
 function rollDice() {
-    let num = document.getElementById("rollNum").value;
+    let num = parseInt(document.getElementById("rollNum").value)
+    console.log("value: " + num)
     const dices = [];
-    for (let i = 0; i < num; i++) {
-        diceRoll();
+    for (let x = 0; x < num; x++) {
+        dices.push(diceRoll());
     }
+    console.log(dices)
 }
 
 function diceRoll() {
-    for (let i = 1; i < diceNum + 1; i++) {
-        console.log(i)
-        let  die = "die" + i;
-        die.innerHTML = rollDice();
-        die.src = "images/" + parseInt(die.innerHTML) + ".png"
+    let dices = []
+    for (let dice = 1; dice < diceNum + 1; dice++) {
+        let dieImage = document.getElementById("die" + dice + "Image")
+        let roll  = "" + rollDie();
+        console.log("images/" + roll + ".png")
+        dieImage.src = "images/" + roll + ".png"
+        dices.push(roll)
     }
+    return dices
 }
 
 function rollDie() {
     return parseInt(Math.random() * 6) + 1;
+}
+
+function getFrequencies() {
+    for (let i = 1; i < 7; i++) {
+        
+    }
 }
