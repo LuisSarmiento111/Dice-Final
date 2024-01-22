@@ -2,13 +2,26 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: #0093E9;
-    background-image: linear-gradient(160deg, #b12816 0%, #221a94 100%);
+    background-image: linear-gradient(160deg, #b93928 0%, #453cc0 100%);
 }
 
 label {
     font-size: 24px;
 }
 
+form {
+    margin:auto;
+    margin-top: 10px;
+    background-color: rgb(230, 146, 146);
+  width: fit-content;
+  border: 10px solid rgb(168, 9, 9);
+  padding: 50px;
+}
+
+.formButton{
+    width: 100px;
+    height: 50px;
+}
 
 /* Button CSS got from https://getcssscan.com/css-buttons-examples*/
 button {
@@ -42,6 +55,8 @@ button {
     width: fit-content;
     visibility: hidden;
 }
+
+
 
 button ::after {
     background-clip: padding-box;
@@ -78,7 +93,7 @@ button:active {
 }
 
 h1 {
-    color: rgb(120, 199, 245);
+    color: rgb(255, 255, 255);
     font-family: sans-serif;
     font-size: 42px;
     margin-bottom: 0;
@@ -97,7 +112,7 @@ td {
 
 table {
     font-family: sans-serif;
-
+}
     th,
     td {
         padding: .25em .5em;
@@ -112,17 +127,14 @@ table {
         background-color: rgb(39, 126, 167);
         color: #fff;
     }
-}
+
 
 .zigzag {
     border-collapse: separate;
     border-spacing: .25em 1em;
 
 
-    thead tr,
-    tbody tr:nth-child(even) {
-        transform: rotate(-2deg);
-    }
+
 }
 
 table {

@@ -20,9 +20,12 @@
         <label for="three">3</label><br>
         <label for="diceNum">How many times do you want to roll the dice?</label>
         <input type="number" id="rollNum" name="diceNum" value="" max="100"><br>
-        <input type="button" id="confirmButton" value="Confirm">
-        <input type="button" id="resetButton" value="Reset">
+        <br>
+        <input type="button" id="editButton" value="Edit" style="visibility: hidden" class="formButton">
+        <input type="button" id="confirmButton" value="Confirm" class="formButton">
+        <input type="button" id="resetButton" value="Reset" style="visibility:hidden" class="formButton">
     </form>
+    <br>
     <button id="rollDiceButton">Roll Dice</button>
     <br>
     <br>
@@ -36,6 +39,14 @@
     <br>
     <span id="total" style="font-size: 36px;"></span>
     <table id="table">
+        <tr>
+            <th>Total Rolls</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Total Amount of Dice Rolled</th>
+            <th></th>
+        </tr>
         <tr>
             <th>Amount of times rolled a 1</th>
             <th></th>
@@ -62,6 +73,10 @@
         </tr>
         <tr>
             <th>Mean for all dice</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Mode</th>
             <th></th>
         </tr>
         <tr>

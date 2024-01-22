@@ -1,6 +1,7 @@
 const rollDiceButton = document.getElementById("rollDiceButton")
 const confirmButton = document.getElementById("confirmButton")
 const resetButton = document.getElementById("resetButton")
+const editButton = document.getElementById("editButton")
 const form = document.getElementById("form")
 const table = document.getElementById("table")
 const die1 = document.getElementById("die1");
@@ -12,8 +13,9 @@ const die3Image = document.getElementById("die3Image");
 const total = document.getElementById("total");
 
 rollDiceButton.addEventListener("click", rollDice);
-confirmButton.addEventListener("click", disableForm)
+confirmButton.addEventListener("click", disableForm);
 resetButton.addEventListener("click", reset)
+editButton.addEventListener("click",editForm)
 
 let diceNum = 0
 let frequencies = [0, 0, 0, 0, 0, 0]
@@ -28,46 +30,47 @@ function disableForm() {
         elements[i].disabled = true;
     }
     rollDiceButton.style.visibility = 'visible'
+    confirmButton.style.visibility = 'hidden'
+    resetButton.style.visibility = 'visible'
+    editButton.style.visibility = 'visible'
 }
 
 function reset() {
+    location.reload();
+}
+
+function editForm() {
     let elements = form.diceNum;
-    diceNum = 0
-    frequencies = [0, 0, 0, 0, 0, 0]
-    allDiceRolls = [[]]
-    for (let i = 0, len = elements.length; i < len; ++i) {
-        elements[i].disabled = false
-        elements[i].checked = false
-        elements[i].value = ""
-    }
-    for (let x = 1; x < 4; x++) {
-        let dieImage = document.getElementById("die" + x + "Image")
-        dieImage.src = ""
-        console.log("hgejtiauhg")
-    }
+    elements[3].disabled = false
+    rollDiceButton.style.visibility = 'hidden'
+    confirmButton.style.visibility = 'visible'
+    resetButton.style.visibility = 'hidden'
+    editButton.style.visibility = 'hidden'
+
 }
 
 function rollDice() {
     let num = parseInt(document.getElementById("rollNum").value)
-    console.log("value: " + num)
+   
     for (let x = 0; x < num; x++) {
         allDiceRolls.push(diceRoll());
     }
-    console.log(allDiceRolls)
+    
     table.style.visibility = 'visible'
     getFrequencies();
     getMeans();
+    getMode();
     if (diceNum > 1) {
         getDoubles();
         if (diceNum > 2) {
             getTriples();
         }
     } else {
-        table.rows[7].cells[1].innerHTML = 0;
-        table.rows[8].cells[1].innerHTML = 0;
+        table.rows[9].cells[1].innerHTML = 0;
+        table.rows[10].cells[1].innerHTML = 0;
     }
-
-
+    table.rows[0].cells[1].innerHTML = allDiceRolls.length
+    table.rows[1].cells[1].innerHTML = allDiceRolls.length * allDiceRolls[0].length
 }
 
 function diceRoll() {
@@ -75,7 +78,7 @@ function diceRoll() {
     for (let dice = 1; dice < diceNum + 1; dice++) {
         let dieImage = document.getElementById("die" + dice + "Image")
         let roll = parseInt(Math.random() * 6) + 1;
-        console.log("images/" + roll + ".png")
+        
         dieImage.src = "images/" + roll + ".png"
         dieImage.style.visibility = 'visible'
         dices.push(roll)
@@ -93,7 +96,7 @@ function getFrequencies() {
                 }
             }
         }
-        table.rows[i - 1].cells[1].innerHTML = frequencies[i - 1];
+        table.rows[i + 1].cells[1].innerHTML = frequencies[i - 1];
     }
 
 }
@@ -106,11 +109,20 @@ function getMeans() {
             sum += allDiceRolls[r][c];
         }
     }
-    console.log(allDiceRolls.length)
-    console.log(allDiceRolls[0].length)
-    console.log(num)
     let mean = Math.round((sum / num) * 100) / 100;
-    table.rows[6].cells[1].innerHTML = mean
+    table.rows[8].cells[1].innerHTML = mean
+}
+
+function getMode() {
+    let num = 0;
+    let max = 0;
+    for (let i = 0; i < frequencies.length; i++) {
+        if(frequencies[i] > max) {
+            num = i + 1
+            max = frequencies[i]
+        }
+    }
+    table.rows[9].cells[1].innerHTML = num
 }
 
 
@@ -121,7 +133,7 @@ function getDoubles() {
             count++;
         }
     }
-    table.rows[7].cells[1].innerHTML = count;
+    table.rows[10].cells[1].innerHTML = count;
 }
 
 function getTriples() {
@@ -131,5 +143,5 @@ function getTriples() {
             count++;
         }
     }
-    table.rows[8].cells[1].innerHTML = count;
+    table.rows[11].cells[1].innerHTML = count;
 }
